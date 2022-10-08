@@ -6,7 +6,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import IconButton from '@mui/material/IconButton';
 import { deleteUser } from './shared/headers';
-import EnhancedTable from './PersonTable';
 
 export default function DeletePersonAlert(id) {
   const [open, setOpen] = React.useState(false);

@@ -19,6 +19,10 @@ export default function UpadatePersonForm(doc) {
   const [manager, setManager] = React.useState('');
 
   const handleClickOpen = () => {
+    setEmail(doc.doc.email);
+    setRole(doc.doc.role);
+    setSalary(doc.doc.salary);
+    setManager(doc.doc.manager);
     setOpen(true);
   };
 
@@ -28,7 +32,6 @@ export default function UpadatePersonForm(doc) {
 
   const handleSubmit = (e) => {
     updateUser(doc.doc.id, {'email': email, 'role': role, 'salary': salary, 'manager': manager});
-    e.preventDefaults()
     handleClose();
   }
 
@@ -69,6 +72,7 @@ export default function UpadatePersonForm(doc) {
                 fullWidth
                 style={{marginTop: '10px'}}
                 onChange={(e) => setEmail(e.target.value)}
+                defaultValue={doc.doc.email}
             />
             <TextField
                 id="dateStarted"
@@ -93,6 +97,7 @@ export default function UpadatePersonForm(doc) {
                 select
                 style={{marginTop: '10px'}}
                 onChange={(e) => setRole(e.target.value)}
+                defaultValue={doc.doc.role}
             >
                 <MenuItem value='Manager'>Manager</MenuItem>
                 <MenuItem value='Worker'>Worker</MenuItem>
@@ -107,6 +112,7 @@ export default function UpadatePersonForm(doc) {
                 }}
                 style={{marginTop: '10px'}}
                 onChange={(e) => setSalary(e.target.value)}
+                defaultValue={doc.doc.salary}
             />
             <TextField
                 id="manager"
@@ -114,6 +120,7 @@ export default function UpadatePersonForm(doc) {
                 fullWidth
                 style={{marginTop: '10px'}}
                 onChange={(e) => setManager(e.target.value)}
+                defaultValue={doc.doc.manager}
             />
         </DialogContent>
         <DialogActions>

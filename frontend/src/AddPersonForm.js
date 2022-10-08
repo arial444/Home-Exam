@@ -8,12 +8,15 @@ import DialogTitle from '@mui/material/DialogTitle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import IconButton from '@mui/material/IconButton';
 import { createUser } from './shared/headers';
+import Alert from '@mui/material/Alert';
 
 export default function AddPersonForm() {
   const [open, setOpen] = React.useState(false);
   const [firstName, setFirstName] = React.useState('');
   const [lastName, setLastName] = React.useState('');
   const [dateStarted, setDateStarted] = React.useState('');
+  const [severity, setSeverity] = React.useState('info');
+  const [message, setMessage] = React.useState('Please fill all the fields.');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -21,12 +24,22 @@ export default function AddPersonForm() {
 
   const handleClose = () => {
     setOpen(false);
+    setSeverity('info');
+    setMessage('Please fill all the fields.');
   };
 
   const handleSubmit = (e) => {
-    createUser({firstName: firstName, lastName: lastName, dateStarted: dateStarted});
-    e.preventDefaults()
-    handleClose();
+    if (firstName === '' || lastName === '' || dateStarted === '')
+    {
+      e.preventDefault();
+      setSeverity('error');
+      setMessage('One or more fields are empty.');
+    }
+    else {
+      createUser({firstName: firstName, lastName: lastName, dateStarted: dateStarted});
+      //e.preventDefaults();
+      handleClose();
+    }
   };
 
   return (
@@ -39,6 +52,7 @@ export default function AddPersonForm() {
       <form noValidate autoComplete='off' onSubmit={handleSubmit}>
         <DialogTitle>Add Person</DialogTitle>
         <DialogContent>
+            <Alert severity={severity}>{message}</Alert>
             <TextField
                 id="firstName"
                 label="First Name"
